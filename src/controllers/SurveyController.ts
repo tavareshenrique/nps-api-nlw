@@ -1,18 +1,18 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-import { getCustomRepository } from 'typeorm';
+import { getCustomRepository } from "typeorm";
 
-import { SurveyRepository } from '../repositories/SurveyRepository';
+import { SurveysRepository } from "../repositories/SurveysRepository";
 
 class SurveyController {
   async create(request: Request, response: Response) {
     const { title, description } = request.body;
 
-    const surveyRepository = getCustomRepository(SurveyRepository);
+    const surveyRepository = getCustomRepository(SurveysRepository);
 
     const survey = surveyRepository.create({
       title,
-      description
+      description,
     });
 
     await surveyRepository.save(survey);
@@ -21,12 +21,12 @@ class SurveyController {
   }
 
   async show(request: Request, response: Response) {
-    const surveyRepository = getCustomRepository(SurveyRepository);
+    const surveyRepository = getCustomRepository(SurveysRepository);
 
-    const allSurveys = await surveyRepository.find()
+    const allSurveys = await surveyRepository.find();
 
-    return response.json(allSurveys)
+    return response.json(allSurveys);
   }
 }
 
-export { SurveyController }
+export { SurveyController };
